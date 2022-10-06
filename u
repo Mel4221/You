@@ -1,0 +1,25 @@
+#!/bin/bash
+
+sh=/usr/local/bin/you
+path=/usr/local/lib/you
+if [[ -f $sh ]]
+then
+  sudo rm $sh
+  echo "Sh Deleted"
+fi
+
+if [[ -d $path ]]
+then
+  echo "Directoy Deleted"
+  sudo rm -r $path
+fi
+
+
+
+
+
+
+
+
+
+
