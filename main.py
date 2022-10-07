@@ -17,6 +17,11 @@ def Main():
           #list = input()
           #Read(list)
           #Tester()
+          path = Path("data")
+          if path.is_dir()==False:
+                    os.mkdir("data")
+                    os.mkdir("data/downloads")
+                    os.mkdir("data/downloads/videos/")
           args = sys.argv[1:]
           if len(args) > 0:
                     print(args)

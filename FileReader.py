@@ -14,8 +14,9 @@ def Read(list):
     #try:
         print("Reading List")
         ReadCompleteFile(list)
+      
         
-        with open(list+".txt") as f:
+        with open(list) as f:
             for line in f:
                 if line.find(':') > 0:
                     global author 
@@ -48,7 +49,7 @@ def ReadCompleteFile(list):
         global SongsCount
         #print("Reading List")
         #Log("LastStart","This was the last time that the application started")
-        with open(list+'.txt') as f:
+        with open(list) as f:
             for line in f:
                 if line.find(':') > 0:
                    
@@ -72,11 +73,11 @@ def ReadLinks(list):
         print("Reading List")
         ReadCompleteFileLinks(list)
         
-        with open(list+".txt") as f:
+        with open(list) as f:
             for line in f:
                     
                     LogLinks(line)
-                    DownloadSong(line, author, "")    
+                    DownloadSong(line,"","")    
           
         return                  
     except:
@@ -91,7 +92,7 @@ def ReadCompleteFileLinks(list):
         global SongsCount
         #print("Reading List")
         #Log("LastStart","This was the last time that the application started")
-        with open(list+'.txt') as f:
+        with open(list) as f:
             for line in f:
             
                     SongsCount = SongsCount+1

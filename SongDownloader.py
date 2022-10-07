@@ -17,10 +17,10 @@ def DownloadSong(song, authorName, songName):
           
           videoLink = song #FindSong("yo soy tu gominola")
           yt = YouTube(videoLink)
-          if songName == "":
+          if songName == "" or authorName == "":
                     print("Downloading a Direct link...")
                     songName = yt.title
-                    authorName = "link"
+                    authorName = "links"
                     
           clearName = regex.sub(r'[^\w]', ' ',authorName)
           author = clearName.replace(" ","_")
