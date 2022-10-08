@@ -25,7 +25,7 @@ def DownloadVideo(videoLink,videoQuality):
           try:
                     if videoQuality == "1080p":
                               
-                              filter = yt.streams.filter(resolution=videoQuality).get_highest_resolution().download(output_path="downloads/videos/", filename=yt.title+".mp4", filename_prefix="",skip_existing=True, timeout=10000, max_retries=10)
+                              filter = yt.streams.filter(resolution=videoQuality).get_highest_resolution.download(output_path="downloads/videos/", filename=yt.title+".mp4", filename_prefix="",skip_existing=True, timeout=10000, max_retries=10)
                     
                     else:
                               filter = yt.streams.filter(resolution=videoQuality).first().download(output_path="downloads/videos/", filename=yt.title+".mp4", filename_prefix="",skip_existing=True, timeout=10000, max_retries=10)
