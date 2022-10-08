@@ -23,7 +23,12 @@ def DownloadVideo(videoLink,videoQuality):
           print("Downloading... "+yt.title+" Attemp: "+str(Attemps)) 
           #filter = yt.streams.filter(resolution=videoQuality)#.first().download(output_path="downloads/videos/", filename=yt.title+".mp4", filename_prefix="",skip_existing=True, timeout=10000, max_retries=10)
           try:
-                    filter = yt.streams.filter(resolution=videoQuality).first().download(output_path="downloads/videos/", filename=yt.title+".mp4", filename_prefix="",skip_existing=True, timeout=10000, max_retries=10)
+                    if videoQuality == "1080p":
+                              
+                              filter = yt.streams.filter(resolution=videoQuality).get_highest_resolution().download(output_path="downloads/videos/", filename=yt.title+".mp4", filename_prefix="",skip_existing=True, timeout=10000, max_retries=10)
+                    
+                    else:
+                              filter = yt.streams.filter(resolution=videoQuality).first().download(output_path="downloads/videos/", filename=yt.title+".mp4", filename_prefix="",skip_existing=True, timeout=10000, max_retries=10)
           
           #.get_lowest_resolution().download(output_path="downloads/videos/", filename="video.mp4", filename_prefix="",skip_existing=True, timeout=10000, max_retries=10)
           
@@ -34,11 +39,31 @@ def DownloadVideo(videoLink,videoQuality):
           except:
                     #global Attemps
                     Attemps = Attemps +1
-                    if Attemps < 2:
+                    if Attemps == 1:
+                              print("Attempting again due to an error...")
                               DownloadVideo(videoLink,videoQuality)
+                              return
                     if Attemps == 2:
+                              print("Download Quality Set to Default '720p' Due to TOO MANY ATTEMPS")
+                              print("Please try a lower Video Quality if the video keeps Attempting...")
                               DownloadVideo(videoLink,"")
-                              print("Download Set to Default Due to TOO MANY ATTEMPS")
+                              return
+                    if Attemps == 3:
+                              print("Download Quality Set to Default '480p' Due to TOO MANY ATTEMPS")
+                              print("Please try a lower Video Quality if the video keeps Attempting...")
+                              DownloadVideo(videoLink,"480")
+                              return
+                    if Attemps == 4:
+                              print("Download Quality Set to Default '360p' Due to TOO MANY ATTEMPS")
+                              print("Please try a lower Video Quality if the video keeps Attempting...")
+                              DownloadVideo(videoLink,"360")
+                              return
+                    if Attemps == 5:
+                              print("Download Quality Set to Default '144p' Due to TOO MANY ATTEMPS")
+                              print("Please try a lower Video Quality if the video keeps Attempting...")
+                              DownloadVideo(videoLink,"144")
+                              return
+          return 
    
                     
           #<Stream: itag="22" mime_type="video/mp4" res="720p" fps="30fps" vcodec="avc1.64001F" acodec="mp4a.40.2" progressive="True" type="video">,

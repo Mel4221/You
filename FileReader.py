@@ -3,6 +3,7 @@ from Logger import LogLinks,Log
 from Searcher import FindSong
 import  validators
 from SongDownloader import DownloadSong,SetGoal,DownloadCount
+from VideoDownloader import DownloadVideo
 import os
 
 author = ""
@@ -11,7 +12,7 @@ AuthorCount = 0
 
 
 def Read(list):
-    #try:
+    ##try:
         print("Reading List")
         ReadCompleteFile(list)
       
@@ -26,25 +27,26 @@ def Read(list):
                           if line.find(':') == 5:
                                     input("Wait Time") 
                           else:
-                              songName = author.replace(':', '')+" "+line+" letra"
-                              print(songName)
-                              print("Finding Link...")
-                              youtubeLink = FindSong(songName)
-                              #Download(youtubeLink, author, line)
-                              LogLinks(youtubeLink)
-                              DownloadSong(youtubeLink, author, songName)
-                    
+                              if line !="":          
+                                        songName = author.replace(':', '')+" "+line+" letra"
+                                        print(songName)
+                                        print("Finding Link...")
+                                        youtubeLink = FindSong(songName)
+                                        #Download(youtubeLink, author, line)
+                                        LogLinks(youtubeLink)
+                                        DownloadSong(youtubeLink, author, songName)
+                              
                     
          
           
         return                  
-   # except:
-    #    print("Please try to put the list inside the list.txt file")
+   # #except:
+    #    print("There was an error while reading the list")
         #os.mkfifo("list.txt"
                  
 
 def ReadCompleteFile(list):
-  try:
+  #try:
         global AuthorCount
         global SongsCount
         #print("Reading List")
@@ -52,24 +54,64 @@ def ReadCompleteFile(list):
         with open(list) as f:
             for line in f:
                 if line.find(':') > 0:
-                   
-                    AuthorCount = AuthorCount+1
+                    if line != "":
+                              AuthorCount = AuthorCount+1
                     #print(line) 
                 else:         
                     #print(line) 
-                    SongsCount = SongsCount+1
+                    if line != "":
+                              SongsCount = SongsCount+1
        
-            print("Songs: "+str(SongsCount)+" "+"Author: "+str(AuthorCount))
+            print("Songs or videos: "+str(SongsCount)+" "+"Author: "+str(AuthorCount))
             SetGoal(SongsCount)
                    
-  except:
-        print("Please try to put the list inside the list.txt file")
+  #except:
+        print("There was an error while reading the list")
         #os.mkfifo("list.txt")
 
 
 
 def ReadLinks(list):
-    try:
+    #try:
+        print("Reading List")
+        ReadCompleteFileLinks(list)
+        
+        with open(list) as f:
+            for line in f:
+                    if line != "":
+                              LogLinks(line)
+                              DownloadSong(line,"","")    
+          
+        return                  
+    #except:
+        print("There was an error while reading the list")
+        #os.mkfifo("list.txt"
+        
+        
+        
+def ReadCompleteFileLinks(list):
+  #try:
+        global AuthorCount
+        global SongsCount
+        #print("Reading List")
+        #Log("LastStart","This was the last time that the application started")
+        with open(list) as f:
+            for line in f:
+                    if line != "":    
+                              SongsCount = SongsCount+1
+                              print("Songs: "+str(SongsCount))
+                              SetGoal(SongsCount)
+
+                   
+  #except:
+       #print("There was an error while reading the list")
+        
+        
+        
+        
+
+def ReadVideoLinks(list,quality,WithName):
+    #try:
         print("Reading List")
         ReadCompleteFileLinks(list)
         
@@ -77,28 +119,16 @@ def ReadLinks(list):
             for line in f:
                     
                     LogLinks(line)
-                    DownloadSong(line,"","")    
-          
+                    if WithName == False:
+                              if line != "":
+                                        DownloadVideo(line,quality)    
+                    if WithName == True:
+                              if line !="":
+                                        video = FindSong(line)
+                                        DownloadVideo(video,quality)    
+
         return                  
-    except:
-        print("Please try to put the list inside the list.txt file")
+    #except:
+        print("There was an error while reading the list")
         #os.mkfifo("list.txt"
         
-        
-        
-def ReadCompleteFileLinks(list):
-  try:
-        global AuthorCount
-        global SongsCount
-        #print("Reading List")
-        #Log("LastStart","This was the last time that the application started")
-        with open(list) as f:
-            for line in f:
-            
-                    SongsCount = SongsCount+1
-       
-            print("Songs: "+str(SongsCount))
-            SetGoal(SongsCount)
-                   
-  except:
-        print("Please try to put the list inside the list.txt file")

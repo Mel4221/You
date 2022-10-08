@@ -11,7 +11,7 @@ def CreateDataPath():
           if path.is_dir()==False:
                     print("Creatting Data Folder")
                     os.mkdir("data")
-def Main():
+def main():
           #ReadCompleteFile()
           #print("Please type the name of the list that you will be downloading from")
           #list = input()
@@ -28,10 +28,11 @@ def Main():
           else:
                     #DownloadVideo("https://www.youtube.com/watch?v=Cn1YELnob5U","")
                     #CreateDataPath()
-                    Selector()
+                    Selector("")
           
           Log(file="LastExit",matter="This was the last exit from the application",ext=".log")
           return 0
-Main()
+if __name__ == '__main__':
+          main()
  
  

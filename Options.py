@@ -7,7 +7,7 @@ import shutil
 import os 
 from FileReader import *
 from SongDownloader import DownloadSong
-from Searcher import FindSong
+from Searcher import FindSong, GetDetails
 
 def FirstOptions():
           
@@ -19,26 +19,39 @@ def FirstOptions():
           print(" 4. More Options...")
           print(" 5. Exit")
 
-def Selector():
-          #Clear()
+def Selector(option):
+         
           FirstOptions()
-          
-          option = input()
+          if option=="":
+                    option = input()
+        
+          """
+                    1 Option level
+          #################################
+          """
           if option == "1":
                     print("\n")
                     print("Please type the name of the video")
                     songName = input()
-                    results = FindSong(songName)
-                    print("The link for the video is :\n")
-                    print(results)
+                    #print("The link for the video is :\n")
+                    print("Video link: "+ GetDetails(songName)[0])
+                    print("Video Title: "+ GetDetails(songName)[1])
+                    print("Published by: "+ GetDetails(songName)[2])
+                    time = int(GetDetails(songName)[3]/ 60)
+                    print("Song Duration : "+str(time) +" Minutes" )
                     return
           
+          """
+                    2 Option level
+          #################################
+          """
           if option == "2":
                     print("\n")
                     print(" 1. with the name of the song")
                     print(" 2. with a list.txt of songs")
                     print(" 3. with a link")
                     print(" 4. with a list of links")
+                    print(" 5. Go Back")
                     option = input()
                     if option == "1":
                               print("Please Type the name of the song")
@@ -49,7 +62,12 @@ def Selector():
                     if option == "2":
                               print("Drop or Drag the list.txt on the console please")
                               list = input()
-                              Read(list)
+                              if list.find(".txt") <0:
+                                        Clear()
+                                        print("Invalid Type of file it must be a .txt file type")
+                                        Selector("2")
+                              else:
+                                        Read(list)
                               return
                     if option == "3":
                               print("Paste the link on the console")
@@ -58,9 +76,65 @@ def Selector():
                     if option == "4":
                               print("Drop or Drag the list.txt on the console please")
                               links = input()
-                              ReadLinks(links)
+                              if links.find(".txt") <0:
+                                        Clear()
+                                        print("Invalid Type of file it must be a .txt file type")
+                                        Selector("2")
+                              else:
+                                        ReadLinks(links)
+                    if option == "5":
+                              Selector("")
+          """
+                    3 Option level 
+          #################################
+          """    
+          if option == "3":
+                    print("\n")
+                    print(" 1. with the name of the video")
+                    print(" 2. with a link")
+                    print(" 3. with a list of videos's names")
+                    print(" 4. with a list of links")
+                    print(" 5. Go Back")
+                    option = input()
+                    if option == "1":
+                              print("Type the name of the  video")
+                              video = input()
+                              print("Which Resolution? , if you don't know just hit Enter")
+                              quality = input()
+                              results = FindSong(video)
+                              DownloadVideo(results,quality)
                               return
-            
+                    if option == "2":
+                              print("Paste the link on the console")
+                              link = input()
+                              
+                              print("Which Resolution? , if you don't know just hit Enter")
+                              quality = input()
+                              DownloadVideo(link,quality) 
+                    if option == "3":
+                              print("Drop or Drag the list.txt on the console please")
+                              list = input()
+                              if list.find(".txt") <0:
+                                        Clear()
+                                        print("Invalid Type of file it must be a .txt file type")
+                                        Selector("3")
+                              else:
+                                        print("Which Resolution? , if you don't know just hit Enter")
+                                        quality = input()
+                                        #results = FindSong(video)
+                                        ReadVideoLinks(list,quality,True)
+                                        #DownloadVideo(results,quality,True)
+                              return
+                    if option == "4":
+                              print("Paste the link on the console")
+                              link = input()
+                              print("Which Resolution? , if you don't know just hit Enter")
+                              quality = input()
+                              ReadVideoLinks(link,quality,False)
+                              return
+                    if option == "5":
+                              Selector("")
+                    
                     return
           
           """
