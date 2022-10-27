@@ -26,7 +26,7 @@ def Selector(option):
                     option = input()
         
           """
-                    1 Option level
+                    1-Option level
           #################################
           """
           if option == "1":
@@ -42,7 +42,7 @@ def Selector(option):
                     return
           
           """
-                    2 Option level
+                    2-Option level
           #################################
           """
           if option == "2":
@@ -83,9 +83,9 @@ def Selector(option):
                               else:
                                         ReadLinks(links)
                     if option == "5":
-                              Selector("")
+                              Selector("") #this just means go back to the main options
           """
-                    3 Option level 
+                    3-Option level 
           #################################
           """    
           if option == "3":
@@ -133,9 +133,35 @@ def Selector(option):
                               ReadVideoLinks(link,quality,False)
                               return
                     if option == "5":
-                              Selector("")
-                    
-                    return
+                              Selector("") #this just means go back to the main options
+          """
+                    4-Option level 
+          #################################
+          """
+          if option == "4":
+                    print("More Options")
+                    print(" 1. Delete All Data")
+                    option = input()
+                    if option == "1":
+                              print("You will not be able to undo this are you sure???")
+                              sure = input("y / n \n")
+                              if sure == "y":
+                              
+                                        shutil.rmtree("downloads", ignore_errors=False, onerror=None)
+                                        os.mkdir("downloads")
+                                        Clear()
+                                        print("All Downloads have been Deleted  Deleted")
+                                        Selector()
+                              else:
+                                        print("Deletion Was Cancelled")
+                                        Selector("") #this just means go back to the main options
+          
+          """
+                    5-Option level
+          #################################
+          """
+          if option == "5":
+                    return 0       
           
           """
           print(" 1. Find Video information ")
