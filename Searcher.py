@@ -9,8 +9,8 @@ searchData = ""
 
 
 def FindSong(song):
-   # try:
-   
+    try:
+          
    
                     songName = song     
                     print("Finding Link for : "+songName) 
@@ -33,11 +33,14 @@ def FindSong(song):
                 
                     return video
                             
-    #except:
-
+    except:
+          print("Something went wrong while finding the song pleas make sure that you are connected to the internet"); 
+          print("NO INTERNET CONNECTION"); 
+          return ""; 
 
 def GetDetails(song):
           
+          try:
                     songName = song     
                     print("Finding Link for : "+songName) 
                     if songName.find("http") >=0:
@@ -58,4 +61,6 @@ def GetDetails(song):
                     yt = YouTube(video)
                     
                     return [video,yt.title,yt.author,yt.length]
+          except:
+                    print("NO INTERNET CONNECTION"); 
           
